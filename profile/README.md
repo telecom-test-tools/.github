@@ -1,86 +1,78 @@
 ## Hi there 👋
 
-# 🚀 Telecom Test Toolkit
+# 🚀 Telecom Test Tools
 
 Open-source tools designed for **telecom and 5G test engineers**.
 
-This toolkit helps engineers:
-
-- analyze telecom logs
-- monitor regression tests
-- detect flaky tests
-- generate test reports
-- visualize automation metrics
+The **Telecom Test Toolkit (TTT)** ecosystem provides a suite of specialized tools for automated log analysis, quality scoring, and reporting.
 
 ---
 
 ## 🧩 Architecture
 
 ```
-Automation Tests
-       │
-       ▼
-  TestWatch
-       │
-       ▼
-Log Analyzer → 5GTestScope
-       │
-       ▼
-Flakiness Analyzer
-       │
-       ▼
-Test Report Generator
-       │
-       ▼
-Test Monitor Dashboard
+┌─────────────────────────────┐
+│    ttt CLI (Orchestrator)   │
+└─────────┬───────────────────┘
+          │
+┌─────────────┼─────────────┐
+│       Plugin System       │
+│  (entry-point discovery)   │
+└─────────────┼─────────────┘
+          │
+┌────────────────────────┼────────────────────────┐
+│                        │                        │
+┌────▼─────┐        ┌─────▼──────┐        ┌─────▼──────┐
+│ Analyzers│        │   Scorers  │        │  Reporters │
+├──────────┤        ├────────────┤        ├────────────┤
+│ testwatch│───────►│  flakiness │───────►│ report-gen │
+│ log-analz│        │   scorer   │        │  dashboard │
+│ testscope│        └────────────┘        └──────────┘
+│                        │                        │
+└────────────────────────┼────────────────────────┘
+          │
+┌─────────▼──────────┐
+│  Shared Data Store │
+│   (ttt_data.json)  │
+└────────────────────┘
 ```
 
----
-
-# 📦 Tools in this Ecosystem
-
-## 📊 5GTestScope
-Smart log analyzer for **gNodeB and simulator logs**.
-
-🔗 https://github.com/gbvk312/5gtestscope
+The toolkit uses a plugin-based architecture where specialized tools are discovered and orchestrated by the central `ttt` command-line interface.
 
 ---
 
-## 🤖 TestWatch
-Real-time **log monitoring tool** for regression runs.
+# 📦 Ecosystem Repositories
 
-🔗 https://github.com/gbvk312/testwatch
-
----
-
-## 🧪 Regression Flakiness Analyzer
-Detect flaky tests using **failure heatmaps and patterns**.
-
-🔗 https://github.com/gbvk312/Regression-Flakiness-Heatmap-Scorer
+## 🏗️ Core & Orchestration
+### [Telecom Test Toolkit](https://github.com/telecom-test-tools/telecom-test-toolkit)
+The central orchestrator and CLI that manages the test analysis pipeline.
 
 ---
 
-## 📊 Test Monitor Dashboard
-Streamlit dashboard for **automation test monitoring**.
+## 🔍 Analyzers
+Tools that process raw logs and extract meaningful events.
 
-🔗 https://github.com/gbvk312/test-monitor-dashboard
-
----
-
-## 📑 Test Report Generator
-Generate **rich HTML test reports** from automation logs.
-
-🔗 https://github.com/gbvk312/test-report-gen
+- **[5GTestScope](https://github.com/telecom-test-tools/5gtestscope)**: Smart log analyzer for gNodeB and simulator logs.
+- **[TestWatch](https://github.com/telecom-test-tools/testwatch)**: Real-time log monitoring for regression runs.
+- **[5G Log Analyzer](https://github.com/telecom-test-tools/5g-log-analyzer)**: General log parsing for telecom test logs.
 
 ---
 
-## 📊 Telecom Log Analyzer
-General log parsing tool for telecom test logs.
+## ⚖️ Scorers
+Tools that provide metrics and quality scores based on analysis.
 
-🔗 https://github.com/gbvk312/5g-log-analyzer
+- **[Regression Flakiness Analyzer](https://github.com/telecom-test-tools/Regression-Flakiness-Heatmap-Scorer)**: Detect flaky tests using failure patterns and heatmaps.
+
+---
+
+## 📊 Reporters & Dashboards
+Tools for visualizing and sharing results.
+
+- **[Test Report Generator](https://github.com/telecom-test-tools/test-report-gen)**: Generate rich HTML test reports from automation logs.
+- **[Test Monitor Dashboard](https://github.com/telecom-test-tools/test-monitor-dashboard)**: Streamlit dashboard for automation test monitoring.
 
 ---
 
 # 🎯 Vision
 
-Build the **best open-source toolkit for telecom test engineers**.
+Build the **best open-source toolkit for telecom test engineers**, breaking down silos between testing tools.
